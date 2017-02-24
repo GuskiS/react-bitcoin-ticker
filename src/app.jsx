@@ -1,11 +1,18 @@
 import React from 'react';
-import '../styles/index.scss';
+import './rxjs-extensions';
+import BitcoinFeedComponent from './components/bitcoin_feed.component';
+
+const bitcoinFeeds = [
+  { type: 'blockchain', url: 'https://blockchain.info/ticker?&cors=true' }
+];
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>It Works!</h1>
+        { bitcoinFeeds.map((item, index) =>
+          <BitcoinFeedComponent key={ index } { ...item } />
+        )}
       </div>
     )
   }
