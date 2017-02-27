@@ -3,7 +3,7 @@ export class BlockchainResponse {
     this.response = response;
   }
 
-  params() {
+  get data() {
     const { buy, sell } = this.response.USD;
     return { buy, sell };
   }

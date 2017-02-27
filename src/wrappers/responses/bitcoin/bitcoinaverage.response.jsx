@@ -3,7 +3,7 @@ export class BitcoinaverageResponse {
     this.response = response;
   }
 
-  params() {
+  get data() {
     const { bid, ask } = this.response;
     return { buy: parseFloat(bid), sell: parseFloat(ask) };
   }

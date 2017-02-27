@@ -21,25 +21,34 @@ export class BaseFeed extends React.Component {
     this.setState({ subscription });
   }
 
+  componentWillUpdate(props, state) {
+    if(state.fetched) {
+      this.refs.content.classList.add('blink');
+    }
+  }
+
+  componentDidUpdate() {
+    setTimeout(() => this.refs.content.classList.remove('blink'), 500);
+  }
+
   componentWillUnmount() {
     this.state.subscription.unsubscribe();
   }
 
   valueClassName(key, data) {
-    if(!this.state.data[key] || data[key] == this.state.data[key]) {
-      return 'glyphicon glyphicon-minus';
-    }
-    else if(data[key] > this.state.data[key]) {
-      return 'glyphicon glyphicon-arrow-up';
-    }
-    else {
-      return 'glyphicon glyphicon-arrow-down';
+    switch(true) {
+      case !this.state.data[key] || data[key] == this.state.data[key]:
+        return 'glyphicon glyphicon-minus';
+      case data[key] > this.state.data[key]:
+        return 'glyphicon glyphicon-arrow-up';
+      default:
+        return 'glyphicon glyphicon-arrow-down';
     }
   }
 
   response(res) {
-    const wrapper = new ResponseWrapper(this.props.type, res.response);
-    return wrapper.data();
+    const wrapper = new ResponseWrapper(this.props.name, this.props.type, res.response);
+    return wrapper.data;
   }
 
   observable(refetch = this.state.refetch) {

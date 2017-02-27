@@ -3,7 +3,7 @@ export class PoloniexResponse {
     this.response = response;
   }
 
-  params() {
+  get data() {
     const { highestBid, lowestAsk } = this.response.USDT_BTC;
     return { buy: parseFloat(highestBid), sell: parseFloat(lowestAsk) };
   }

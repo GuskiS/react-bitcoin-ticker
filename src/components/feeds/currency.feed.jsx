@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseFeed } from './base.feed';
 
-export class BitcoinFeed extends BaseFeed {
+export class CurrencyFeed extends BaseFeed {
   constructor(props) {
     super(props);
   }
@@ -9,8 +9,8 @@ export class BitcoinFeed extends BaseFeed {
   response(res) {
     const data = super.response(res);
     const classes = {
-      sell: this.valueClassName('sell', data),
-      buy: this.valueClassName('buy', data),
+      gbp: this.valueClassName('gbp', data),
+      eur: this.valueClassName('eur', data),
     };
 
     this.setState({ data, classes, fetched: true });
@@ -26,15 +26,13 @@ export class BitcoinFeed extends BaseFeed {
           <a href={ url }>{ type }</a>
 
           <div>
-            Buy:
-            <span className='glyphicon glyphicon-usd'>{ data.buy }</span>
-            <span className={ classes.buy }></span>
+            <span className='glyphicon glyphicon-gbp'>{ data.gbp }</span>
+            <span className={ classes.gbp }></span>
           </div>
 
           <div>
-            Sell:
-            <span className='glyphicon glyphicon-usd'>{ data.sell }</span>
-            <span className={ classes.sell }></span>
+            <span className='glyphicon glyphicon-eur'>{ data.eur }</span>
+            <span className={ classes.eur }></span>
           </div>
         </div>
       </div>

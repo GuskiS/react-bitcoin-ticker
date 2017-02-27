@@ -1,37 +1,20 @@
-import { HitbtcResponse         } from './responses/hitbtc.response';
-import { PoloniexResponse       } from './responses/poloniex.response';
-import { BlockchainResponse     } from './responses/blockchain.response';
-import { BitcoinaverageResponse } from './responses/bitcoinaverage.response';
+import { BitcoinResponse } from './responses/bitcoin.response';
+import { CurrencyResponse } from './responses/currency.response';
 
 export class ResponseWrapper {
-  constructor(type, response) {
+  constructor(name, type, response) {
+    this.name = name;
     this.type = type;
-    this.response = this.object(response);
+    this.response = response;
   }
 
-  object(response) {
-    const object = {
-      hitbtc: HitbtcResponse,
-      poloniex: PoloniexResponse,
-      blockchain: BlockchainResponse,
-      bitcoinaverage: BitcoinaverageResponse,
-    }[this.type];
+  get data() {
+    const parser = {
+      bitcoin: BitcoinResponse,
+      currency: CurrencyResponse,
+    }[this.name];
+    const object = new parser(this.type, this.response);
 
-    if(object) {
-      return new object(response);
-    }
-    else {
-      console.error(`Unrecognized response - ${this.type}`);
-    }
-  }
-
-  data() {
-    if(this.response) {
-      const { buy, sell } = this.response.params();
-      return { buy: buy.toFixed(2), sell: sell.toFixed(2) };
-    }
-    else {
-      return {};
-    }
+    return object.data;
   }
 }
