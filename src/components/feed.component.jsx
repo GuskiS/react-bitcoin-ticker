@@ -51,6 +51,16 @@ export default class BitcoinComponent extends React.Component {
       .repeat();
   }
 
+  componentWillUpdate(props, state) {
+    if(state.data.sell) {
+      this.refs.content.classList.add('blink');
+    }
+  }
+
+  componentDidUpdate() {
+    setTimeout(() => this.refs.content.classList.remove('blink'), 500);
+  }
+
   componentDidMount() {
     const subscription = this.state.observable.subscribe(this.response.bind(this));
     this.setState({ subscription });
@@ -66,16 +76,20 @@ export default class BitcoinComponent extends React.Component {
 
     return (
       <div className='col-xs-12 col-sm-2 feed-component'>
-        <a href={ url }>{ type }</a>
+        <div ref='content'>
+          <a href={ url }>{ type }</a>
 
-        <div>
-          Buy:
-          <span className={ classes.buy }>{ data.buy }</span>
-        </div>
+          <div>
+            Buy:
+            <span className='glyphicon glyphicon-usd'>{ data.buy }</span>
+            <span className={ classes.buy }></span>
+          </div>
 
-        <div>
-          Sell:
-          <span className={ classes.sell }>{ data.sell }</span>
+          <div>
+            Sell:
+            <span className='glyphicon glyphicon-usd'>{ data.sell }</span>
+            <span className={ classes.sell }></span>
+          </div>
         </div>
       </div>
     )

@@ -1,5 +1,20 @@
 .bitcoin-component {
   .feed-component {
+    .blink {
+      -webkit-animation-name: blink;
+      -webkit-animation-duration: .5s;
+      animation-name: blink;
+      animation-duration: .5s;
+      @-webkit-keyframes blink {
+        from {background-color: red;}
+        to {background-color: yellow;}
+      }
+      @keyframes blink {
+        from {background-color: white;}
+        to {background-color: #BADA55;}
+      }
+    }
+
     .glyphicon {
       &.glyphicon-arrow-up { color: green; }
       &.glyphicon-arrow-down { color: red; }
