@@ -1,4 +1,4 @@
-export default class BitcoinaverageResponse {
+export class BitcoinaverageResponse {
   constructor(response) {
     this.response = response;
   }

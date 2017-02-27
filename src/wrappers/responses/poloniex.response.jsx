@@ -1,4 +1,4 @@
-export default class PoloniexResponse {
+export class PoloniexResponse {
   constructor(response) {
     this.response = response;
   }

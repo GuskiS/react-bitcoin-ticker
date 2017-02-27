@@ -1,9 +1,9 @@
-import HitbtcResponse         from './responses/hitbtc.response';
-import PoloniexResponse       from './responses/poloniex.response';
-import BlockchainResponse     from './responses/blockchain.response';
-import BitcoinaverageResponse from './responses/bitcoinaverage.response';
+import { HitbtcResponse         } from './responses/hitbtc.response';
+import { PoloniexResponse       } from './responses/poloniex.response';
+import { BlockchainResponse     } from './responses/blockchain.response';
+import { BitcoinaverageResponse } from './responses/bitcoinaverage.response';
 
-export default class ResponseWrapper {
+export class ResponseWrapper {
   constructor(type, response) {
     this.type = type;
     this.response = this.object(response);

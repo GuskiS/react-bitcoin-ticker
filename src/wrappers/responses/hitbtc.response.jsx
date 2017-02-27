@@ -1,4 +1,4 @@
-export default class HitbtcResponse {
+export class HitbtcResponse {
   constructor(response) {
     this.response = response;
   }

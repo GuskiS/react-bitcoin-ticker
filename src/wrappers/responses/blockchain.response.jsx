@@ -1,4 +1,4 @@
-export default class BlockchainResponse {
+export class BlockchainResponse {
   constructor(response) {
     this.response = response;
   }
