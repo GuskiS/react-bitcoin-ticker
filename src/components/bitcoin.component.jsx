@@ -9,7 +9,7 @@ const feeds = {
     // { type: 'bitcoinaverage', url: 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD' },
   ],
   currency: [
-    { type: 'fixer', url: 'http://api.fixer.io/latest?base=USD?symbols=EUR,GBP' }
+    { type: 'fixer', url: 'http://api.fixer.io/latest?base=USD&symbols=EUR,GBP' }
   ]
 }
 
@@ -18,6 +18,9 @@ export class BitcoinComponent extends React.Component {
     return (
       <div className='row bitcoin-component'>
         { feeds.bitcoin.map((item, index) =>
+          <BitcoinFeed key={ index } { ...item } />
+        )}
+        { feeds.currency.map((item, index) =>
           <BitcoinFeed key={ index } { ...item } />
         )}
       </div>

@@ -17,11 +17,21 @@ export class ResponseWrapper {
       bitcoinaverage: BitcoinaverageResponse,
     }[this.type];
 
-    return new object(response);
+    if(object) {
+      return new object(response);
+    }
+    else {
+      console.error(`Unrecognized response - ${this.type}`);
+    }
   }
 
   data() {
-    const { buy, sell } = this.response.params();
-    return { buy: buy.toFixed(2), sell: sell.toFixed(2) };
+    if(this.response) {
+      const { buy, sell } = this.response.params();
+      return { buy: buy.toFixed(2), sell: sell.toFixed(2) };
+    }
+    else {
+      return {};
+    }
   }
 }
