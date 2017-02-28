@@ -1,25 +1,64 @@
-.bitcoin-component, .custom-component {
-  .feed-component {
-    .blink {
-      -webkit-animation-name: blink;
-      -webkit-animation-duration: .5s;
-      animation-name: blink;
-      animation-duration: .5s;
-      @-webkit-keyframes blink {
-        from {background-color: red;}
-        to {background-color: yellow;}
+.container-fluid {
+  $default-spacing: 15px;
+  max-width: 1480px;
+
+  .bitcoin-component, .custom-component {
+    .feed-component {
+      min-height: 100px;
+      .text-error { color: red; }
+      .feed-container { padding: 5px; }
+
+      .blink {
+        -webkit-animation-name: blink;
+        -webkit-animation-duration: .5s;
+        animation-name: blink;
+        animation-duration: .5s;
+        @-webkit-keyframes blink {
+          from {background-color: red;}
+          to {background-color: yellow;}
+        }
+        @keyframes blink {
+          from {background-color: white;}
+          to {background-color: #BADA55;}
+        }
       }
-      @keyframes blink {
-        from {background-color: white;}
-        to {background-color: #BADA55;}
+
+      div.glyphicon {
+        display: block;
+        line-height: normal;
+      }
+
+      .glyphicon {
+        width: 16px;
+        height: 16px;
+        line-height: normal;
+        &:before { padding-right: 5px; }
+        &.glyphicon-remove { cursor: pointer; }
+        &.glyphicon-remove:before { padding-left: 5px; }
+        &.glyphicon-arrow-up { color: green; }
+        &.glyphicon-arrow-down { color: red; }
+      }
+    }
+  }
+
+  .bitcoin-component {
+    padding-bottom: $default-spacing;
+    border-bottom: 1px solid #BADA55;
+  }
+
+  .custom-component {
+    form.form-inline {
+      margin-top: $default-spacing;
+      padding-bottom: $default-spacing;
+      border-bottom: 1px solid #BADA55;
+
+      .form-group {
+        margin-right: $default-spacing;
       }
     }
 
-    .text-error { color: red; }
-    .glyphicon {
-      &.glyphicon-remove { cursor: pointer; }
-      &.glyphicon-arrow-up { color: green; }
-      &.glyphicon-arrow-down { color: red; }
+    .bitcoin-list {
+      margin-top: $default-spacing;
     }
   }
 }

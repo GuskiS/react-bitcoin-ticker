@@ -29,7 +29,7 @@ class CurrencyFeed extends BaseFeed {
     const { classes, data, error } = this.state;
 
     if(error) {
-      return (<div className='col-xs-12 text-error'>{ error }</div>)
+      return (<div className='text-error'>{ error }</div>)
     }
     else {
       return (
@@ -52,11 +52,13 @@ class CurrencyFeed extends BaseFeed {
     const { url, type } = this.props;
 
     return (
-      <div className='col-xs-12 col-sm-2 feed-component'>
-        <div ref='content'>
-          <a href={ url }>{ type }</a>
+      <div className='col-xs-12 col-sm-3 feed-component'>
+        <div className='row feed-container' ref='content'>
+          <div className='col-xs-12'>
+            <a href={ url }>{ type }</a>
 
-          { this.renderContent() }
+            { this.renderContent() }
+          </div>
         </div>
       </div>
     );

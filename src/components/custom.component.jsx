@@ -30,8 +30,9 @@ export class CustomComponent extends React.Component {
 
     return (
       <div className='row custom-component'>
-        <form className='form-inline' onSubmit={ this.add.bind(this) }>
+        <form className='col-xs-12 form-inline' onSubmit={ this.add.bind(this) }>
           <div className='form-group'>
+            <div>Feed</div>
             <select className='form-control' ref='feed'>
               { bitcoin.map((feed, index) =>
                 <option key={ index } value={ index }>{ feed.type }</option>
@@ -40,21 +41,25 @@ export class CustomComponent extends React.Component {
           </div>
 
           <div className='form-group'>
+            <div>Fetch time</div>
             <select className='form-control' ref='refetch'>
               { refetch.map((number, index) =>
-                <option key={ index } value={ number }>{ number }</option>
+                <option key={ index } value={ number }>{ number } seconds</option>
               )}
             </select>
           </div>
 
           <div className='form-group'>
+            <div>&nbsp;</div>
             <input className='btn btn-info' type='submit' value='Add' />
           </div>
         </form>
 
-        { custom.map((item, index) =>
-          <BitcoinFeed key={ index } remove={ this.remove.bind(this, index) } { ...item } />
-        )}
+        <div className='clearfix bitcoin-list'>
+          { custom.map((item, index) =>
+            <BitcoinFeed key={ index } remove={ this.remove.bind(this, index) } { ...item } />
+          )}
+        </div>
       </div>
     )
   }
