@@ -1,6 +1,6 @@
 import React from 'react';
-import { BitcoinFeed } from './feeds/bitcoin.feed';
-import { CurrencyFeed } from './feeds/currency.feed';
+import BitcoinFeed from './feeds/bitcoin.feed';
+import CurrencyFeed from './feeds/currency.feed';
 
 const feeds = {
   bitcoin: [

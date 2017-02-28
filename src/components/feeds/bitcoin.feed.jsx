@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BaseFeed } from './base.feed';
 
-export class BitcoinFeed extends BaseFeed {
+class BitcoinFeed extends BaseFeed {
   constructor(props) {
     super(props);
   }
@@ -41,3 +42,9 @@ export class BitcoinFeed extends BaseFeed {
     );
   }
 }
+
+const globalState = (state) => ({
+  currencies: state.currencies
+});
+
+export default connect(globalState)(BitcoinFeed);

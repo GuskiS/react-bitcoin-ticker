@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BaseFeed } from './base.feed';
 
-export class CurrencyFeed extends BaseFeed {
+class CurrencyFeed extends BaseFeed {
   constructor(props) {
     super(props);
   }
@@ -39,3 +40,6 @@ export class CurrencyFeed extends BaseFeed {
     );
   }
 }
+
+const globalState = (state) => ({});
+export default connect(globalState)(CurrencyFeed);

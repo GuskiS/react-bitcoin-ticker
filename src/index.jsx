@@ -4,16 +4,18 @@ import { AppContainer } from 'react-hot-loader';
 import { App } from './app.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-render(<AppContainer><App/></AppContainer>, document.querySelector("#app"));
+import { Provider } from 'react-redux';
+import store from './store';
+
+const components = <Provider store={ store() }>
+  <AppContainer><App/></AppContainer>
+</Provider>
+
+render(components, document.querySelector("#app"));
 
 if (module && module.hot) {
   module.hot.accept('./app.jsx', () => {
     const App = require('./app.jsx').default;
-    render(
-      <AppContainer>
-        <App/>
-      </AppContainer>,
-      document.querySelector("#app")
-    );
+    render(components, document.querySelector("#app"));
   });
 }
