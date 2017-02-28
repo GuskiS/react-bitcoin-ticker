@@ -1,4 +1,4 @@
-.bitcoin-component {
+.bitcoin-component, .custom-component {
   .feed-component {
     .blink {
       -webkit-animation-name: blink;
@@ -16,6 +16,7 @@
     }
 
     .glyphicon {
+      &.glyphicon-remove { cursor: pointer; }
       &.glyphicon-arrow-up { color: green; }
       &.glyphicon-arrow-down { color: red; }
     }

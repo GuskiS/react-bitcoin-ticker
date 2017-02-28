@@ -28,7 +28,7 @@ export class BaseFeed extends React.Component {
   }
 
   componentDidUpdate() {
-    setTimeout(() => this.refs.content.classList.remove('blink'), 500);
+    setTimeout(() => this.refs.content && this.refs.content.classList.remove('blink'), 500);
   }
 
   componentWillUnmount() {
@@ -47,7 +47,7 @@ export class BaseFeed extends React.Component {
   }
 
   response(res) {
-    const wrapper = new ResponseWrapper(this.props.name, this.props.type, res.response);
+    const wrapper = new ResponseWrapper(this.state.name, this.props.type, res.response);
     return wrapper.data;
   }
 

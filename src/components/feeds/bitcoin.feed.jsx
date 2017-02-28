@@ -5,6 +5,7 @@ import { BaseFeed } from './base.feed';
 class BitcoinFeed extends BaseFeed {
   constructor(props) {
     super(props);
+    this.state.name = 'bitcoin';
   }
 
   response(res) {
@@ -19,6 +20,11 @@ class BitcoinFeed extends BaseFeed {
 
   converPrice(price, currency) {
     return (price * parseFloat(this.props.currencies[currency])).toFixed(2);
+  }
+
+  renderRemove() {
+    if(!this.props.remove) return;
+    return (<span className='glyphicon glyphicon-remove' onClick={ this.props.remove }></span>)
   }
 
   renderCurrencies(price) {
@@ -40,6 +46,7 @@ class BitcoinFeed extends BaseFeed {
         <div className='row' ref='content'>
           <div className='col-xs-12'>
             <a href={ url }>{ type }</a>
+            { this.renderRemove() }
           </div>
 
           <div className='col-xs-6'>

@@ -6,6 +6,7 @@ import { SET_CURRENCIES } from './../../store/constants';
 class CurrencyFeed extends BaseFeed {
   constructor(props) {
     super(props);
+    this.state.name = 'currency';
   }
 
   dispatch(newData) {
