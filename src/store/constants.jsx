@@ -1,3 +1,1 @@
-export const Constants = {
-  SET_CURRENCIES: 'SET_CURRENCIES'
-};
+export const SET_CURRENCIES = 'SET_CURRENCIES';

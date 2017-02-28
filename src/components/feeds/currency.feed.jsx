@@ -1,10 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BaseFeed } from './base.feed';
+import { SET_CURRENCIES } from './../../store/constants';
 
 class CurrencyFeed extends BaseFeed {
   constructor(props) {
     super(props);
+  }
+
+  dispatch(newData) {
+    const { data } = this.state;
+    if(data.eur !== newData.eur || data.gbp !== newData.gbp) {
+      this.props.dispatch({ type: SET_CURRENCIES, payload: newData });
+    }
   }
 
   response(res) {
@@ -14,6 +22,7 @@ class CurrencyFeed extends BaseFeed {
       eur: this.valueClassName('eur', data),
     };
 
+    this.dispatch(data);
     this.setState({ data, classes, fetched: true });
   }
 
@@ -27,12 +36,12 @@ class CurrencyFeed extends BaseFeed {
           <a href={ url }>{ type }</a>
 
           <div>
-            <span className='glyphicon glyphicon-gbp'>{ data.gbp }</span>
+            <span>USD/EUR: { data.gbp }</span>
             <span className={ classes.gbp }></span>
           </div>
 
           <div>
-            <span className='glyphicon glyphicon-eur'>{ data.eur }</span>
+            <span>USD/GBP: { data.eur }</span>
             <span className={ classes.eur }></span>
           </div>
         </div>
@@ -41,5 +50,7 @@ class CurrencyFeed extends BaseFeed {
   }
 }
 
-const globalState = (state) => ({});
+const globalState = (state) => ({
+  currencies: state.currencies
+});
 export default connect(globalState)(CurrencyFeed);
