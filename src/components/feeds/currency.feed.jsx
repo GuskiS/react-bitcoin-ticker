@@ -16,35 +16,47 @@ class CurrencyFeed extends BaseFeed {
     }
   }
 
-  response(res) {
-    const data = super.response(res);
-    const classes = {
+  classes(data) {
+    this.dispatch(data);
+
+    return {
       gbp: this.valueClassName('gbp', data),
       eur: this.valueClassName('eur', data),
     };
+  }
 
-    this.dispatch(data);
-    this.setState({ data, classes, fetched: true });
+  renderContent() {
+    const { classes, data, error } = this.state;
+
+    if(error) {
+      return (<div className='col-xs-12 text-error'>{ error }</div>)
+    }
+    else {
+      return (
+        <div>
+          <div>
+            <span>USD/EUR: { data.eur }</span>
+            <span className={ classes.eur }></span>
+          </div>
+
+          <div>
+            <span>USD/GBP: { data.gbp }</span>
+            <span className={ classes.gbp }></span>
+          </div>
+        </div>
+      )
+    }
   }
 
   render() {
     const { url, type } = this.props;
-    const { classes, data } = this.state;
 
     return (
       <div className='col-xs-12 col-sm-2 feed-component'>
         <div ref='content'>
           <a href={ url }>{ type }</a>
 
-          <div>
-            <span>USD/EUR: { data.gbp }</span>
-            <span className={ classes.gbp }></span>
-          </div>
-
-          <div>
-            <span>USD/GBP: { data.eur }</span>
-            <span className={ classes.eur }></span>
-          </div>
+          { this.renderContent() }
         </div>
       </div>
     );

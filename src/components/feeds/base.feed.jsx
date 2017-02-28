@@ -17,14 +17,23 @@ export class BaseFeed extends React.Component {
   }
 
   componentDidMount() {
-    const subscription = this.state.observable.subscribe(this.response.bind(this));
+    const subscription = this.state.observable
+      .subscribe(
+        this.success.bind(this),
+        this.error.bind(this)
+      );
+
     this.setState({ subscription });
   }
 
   componentWillUpdate(props, state) {
-    if(state.fetched) {
+    const change = this.state !== state;
+
+    if(change && state.fetched) {
       this.refs.content.classList.add('blink');
     }
+
+    return change;
   }
 
   componentDidUpdate() {
@@ -46,9 +55,15 @@ export class BaseFeed extends React.Component {
     }
   }
 
-  response(res) {
+  success(res) {
     const wrapper = new ResponseWrapper(this.state.name, this.props.type, res.response);
-    return wrapper.data;
+    const data = wrapper.data;
+    const classes = this.classes(data);
+    this.setState({ data, classes, fetched: true, error: null });
+  }
+
+  error(error) {
+    this.setState({ error });
   }
 
   observable(refetch = this.state.refetch) {
@@ -61,6 +76,23 @@ export class BaseFeed extends React.Component {
     return Observable
       .timer(0, refetch * 1000)
       .concatMap(() => Observable.ajax(settings))
+      .catch(this.handleError)
       .repeat();
+  }
+
+  handleError(error) {
+    let msg;
+    if(error.xhr) {
+      msg = error.xhr.statusText;
+    }
+    else {
+      msg = error.message ? error.message : error.toString();
+    }
+    return Observable.throw(msg);
+  }
+
+  renderRemove() {
+    if(!this.props.remove) return;
+    return (<span className='glyphicon glyphicon-remove' onClick={ this.props.remove }></span>)
   }
 }

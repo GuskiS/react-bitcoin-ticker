@@ -8,23 +8,38 @@ class BitcoinFeed extends BaseFeed {
     this.state.name = 'bitcoin';
   }
 
-  response(res) {
-    const data = super.response(res);
-    const classes = {
+  classes(data) {
+    return {
       sell: this.valueClassName('sell', data),
       buy: this.valueClassName('buy', data),
     };
-
-    this.setState({ data, classes, fetched: true });
   }
 
   converPrice(price, currency) {
-    return (price * parseFloat(this.props.currencies[currency])).toFixed(2);
+    return ((price || 0.0) * parseFloat(this.props.currencies[currency])).toFixed(2);
   }
 
-  renderRemove() {
-    if(!this.props.remove) return;
-    return (<span className='glyphicon glyphicon-remove' onClick={ this.props.remove }></span>)
+  renderContent() {
+    const { classes, data, error } = this.state;
+
+    if(error) {
+      return (<div className='col-xs-12 text-error'>{ error }</div>)
+    }
+    else {
+      return (
+        <div>
+          <div className='col-xs-6'>
+            <div className={ classes.buy }>buy:</div>
+            { this.renderCurrencies(parseFloat(data.buy)) }
+          </div>
+
+          <div className='col-xs-6'>
+            <div className={ classes.sell }>sell:</div>
+            { this.renderCurrencies(parseFloat(data.sell)) }
+          </div>
+        </div>
+      )
+    }
   }
 
   renderCurrencies(price) {
@@ -39,7 +54,6 @@ class BitcoinFeed extends BaseFeed {
 
   render() {
     const { url, type } = this.props;
-    const { classes, data } = this.state;
 
     return (
       <div className='col-xs-12 col-sm-2 feed-component'>
@@ -49,15 +63,7 @@ class BitcoinFeed extends BaseFeed {
             { this.renderRemove() }
           </div>
 
-          <div className='col-xs-6'>
-            <span className={ classes.buy }>buy:</span>
-            { this.renderCurrencies(parseFloat(data.buy)) }
-          </div>
-
-          <div className='col-xs-6'>
-            <span className={ classes.sell }>sell:</span>
-            { this.renderCurrencies(parseFloat(data.sell)) }
-          </div>
+          { this.renderContent() }
         </div>
       </div>
     );
