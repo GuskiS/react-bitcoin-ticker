@@ -1,6 +1,7 @@
 import React from 'react';
 import { Observable } from 'rxjs/Observable';
-import { ResponseWrapper } from './../../wrappers/response.wrapper';
+import { ErrorWrapper } from './../../wrappers/error.wrapper';
+import { SuccessWrapper } from './../../wrappers/success.wrapper';
 
 const REFETCH = 5;
 
@@ -56,14 +57,15 @@ export class BaseFeed extends React.Component {
   }
 
   success(res) {
-    const wrapper = new ResponseWrapper(this.state.name, this.props.type, res.response);
+    const wrapper = new SuccessWrapper(this.state.name, this.props.type, res.response);
     const data = wrapper.data;
     const classes = this.classes(data);
     this.setState({ data, classes, fetched: true, error: null });
   }
 
   error(error) {
-    this.setState({ error });
+    const wrapper = new ErrorWrapper(error);
+    this.setState({ error: wrapper.data });
   }
 
   observable(refetch = this.state.refetch) {
@@ -76,19 +78,8 @@ export class BaseFeed extends React.Component {
     return Observable
       .timer(0, refetch * 1000)
       .concatMap(() => Observable.ajax(settings))
-      .catch(this.handleError)
+      .catch((error) => Observable.throw(error))
       .repeat();
-  }
-
-  handleError(error) {
-    let msg;
-    if(error.xhr) {
-      msg = error.xhr.statusText;
-    }
-    else {
-      msg = error.message ? error.message : error.toString();
-    }
-    return Observable.throw(msg);
   }
 
   renderRemove() {

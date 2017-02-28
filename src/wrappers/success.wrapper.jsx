@@ -1,7 +1,7 @@
-import { BitcoinResponse } from './responses/bitcoin.response';
-import { CurrencyResponse } from './responses/currency.response';
+import { BitcoinResponse } from './success/bitcoin.response';
+import { CurrencyResponse } from './success/currency.response';
 
-export class ResponseWrapper {
+export class SuccessWrapper {
   constructor(name, type, response) {
     this.name = name;
     this.type = type;
