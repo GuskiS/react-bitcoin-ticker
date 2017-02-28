@@ -8,7 +8,7 @@ export class ErrorWrapper {
       return this.error.xhr.statusText;
     }
     else {
-      return this.error.message ? this.error.message : this.error.toString();
+      return this.error.message || this.error.toString();
     }
   }
 }
